@@ -4,17 +4,16 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 
-#define B_MAC 0
-#define B_WIN 1
-#define NAV 2
-#define SYM 3
-#define ADJ 4
+#define BASE 0
+#define NAV 1
+#define SYM 2
+#define ADJ 3
 
 // key-positions:
-//   00 01 02 03 04                         05 06 07 08 09
-//   10 11 12 13 14                         15 16 17 18 19
-//   20 21 22 23 24 25             26 27 28 29 30 31
-//   32 33 34 35 36 37             38 39 -- -- 42 43
+//   00 01 02 03 04              05 06 07 08 09
+//   10 11 12 13 14              15 16 17 18 19
+//   20 21 22 23 24 25        26 27 28 29 30 31
+//   32 33 34 35 36 37        38 39 -- -- 42 43
 
 / {
     hmr_r: hmr_r {
@@ -95,25 +94,37 @@
             bindings = <&mkp MB2>;
         };
 
+        combo_mouse_left2 {
+            timeout-ms = <30>;
+            key-positions = <16 28>;
+            bindings = <&mkp MB1>;
+        };
+
+        combo_mouse_right2 {
+            timeout-ms = <30>;
+            key-positions = <17 29>;
+            bindings = <&mkp MB2>;
+        };
+
         combo_minus {
             timeout-ms = <30>;
             key-positions = <17 18>;
             bindings = <&kp MINUS>;
-            layers = <B_MAC B_WIN>;
+            layers = <BASE>;
         };
 
         combo_equal {
             timeout-ms = <30>;
             key-positions = <7 8>;
             bindings = <&kp EQUAL>;
-            layers = <B_MAC B_WIN>;
+            layers = <BASE>;
         };
 
         combo_backslash {
             timeout-ms = <30>;
             key-positions = <28 29>;
             bindings = <&kp BSLH>;
-            layers = <B_MAC B_WIN>;
+            layers = <BASE>;
         };
 
         combo_f11 {
@@ -201,78 +212,48 @@
             bindings = <&kp LC(J)>;
         };
 
-        combo_mac {
-            timeout-ms = <30>;
-            key-positions = <2 3 4>;
-            bindings = <&kp LG(LS(N4))>;
-            layers = <B_MAC>;
-        };
-
-        combo_win {
-            timeout-ms = <30>;
-            key-positions = <2 3 4>;
-            bindings = <&kp LG(LS(S))>;
-            layers = <B_WIN>;
-        };
-
-        combo_sht_opt_cmd_bslash {
-            timeout-ms = <30>;
-            key-positions = <5 6 7>;
-            bindings = <&kp LG(LA(LS(BSLH)))>;
-            layers = <B_MAC>;
-        };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        b_mac {
-            display-name = "B_MAC";
+        base {
+            display-name = "BASE";
             bindings = <
-&kp Q              &kp W           &kp E     &kp R        &kp T                         &kp Y            &kp U    &kp I      &kp O             &kp P
-&hmr_r2 LCTRL A    &hmr_l LALT S   &kp D     &kp F        &kp G                         &kp H            &kp J    &kp K      &hmr_r RALT L    &hmr_r2 RCTRL SEMI
-&kp Z              &kp X           &kp C     &kp V        &kp B       &kp SPACE  &kp RET &kp N            &kp M    &kp COMMA  &kp DOT           &kp FSLH
-&kp LCTRL          &kp LGUI        &kp LALT  &mt LGUI ESC &mo NAV     &mt LSHFT SPACE    &mt RSHFT RET    &mo SYM  &none      &none             &kp RGUI  &kp RALT
-            >;
-        };
-
-        b_win {
-            display-name = "B_WIN";
-            bindings = <
-&kp Q              &kp W           &kp E     &kp R        &kp T                         &kp Y            &kp U    &kp I      &kp O             &kp P
-&hmr_r2 LCTRL A    &hmr_l LALT S   &kp D     &kp F        &kp G                         &kp H            &kp J    &kp K      &hmr_r RALT L    &hmr_r2 RCTRL SEMI
-&kp Z              &kp X           &kp C     &kp V        &kp B       &kp SPACE  &kp RET &kp N            &kp M    &kp COMMA  &kp DOT           &kp FSLH
-&kp LCTRL          &kp LGUI        &kp LALT  &mt LGUI ESC &mo NAV     &mt LSHFT SPACE    &mt RSHFT RET    &mo SYM  &none      &none             &kp RGUI  &kp RALT
+&kp Q            &kp W         &kp E     &kp R        &kp T                                   &kp Y    &kp U    &kp I      &kp O          &kp P
+&hmr_r2 LCTRL A  &hmr_l LALT S &kp D     &kp F        &kp G                                   &kp H    &kp J    &kp K      &hmr_r RALT L  &hmr_r2 RCTRL SEMI
+&kp Z            &kp X         &kp C     &kp V        &kp B    &kp SPACE        &kp RALT      &kp N    &kp M    &kp COMMA  &kp DOT        &kp FSLH
+&kp LC(X)        &kp LC(C)     &kp LC(V) &mt LGUI ESC &mo NAV  &mt LSHFT SPACE  &mt RSHFT RET &mo SYM  &none    &none      &kp RGUI       &kp RCTRL
             >;
         };
 
         nav {
             display-name = "NAV";
             bindings = <
-&trans      &trans      &kp LC(PG_DN)  &kp LC(PG_UP)  &trans                         &kp HOME       &kp PG_DN  &kp PG_UP  &kp END    &trans
-&kp LC(N1)  &kp LC(N2)  &kp LC(N3)     &kp LC(N4)     &kp LC(N5)                     &kp LEFT       &kp DOWN   &kp UP     &kp RIGHT  &trans
-&trans      &trans      &kp SPACE      &kp LA(LS(M))  &trans       &trans  &trans    &trans         &trans     &trans     &trans     &trans
-&trans      &trans      &trans         &mt LGUI ESC   &mo NAV      &mt LSHFT SPACE   &mt RSHFT RET  &mo SYM    &none      &none      &kp RGUI   &trans
+&trans     &trans     &kp LC(PG_DN) &kp LC(PG_UP)        &kp LG(LS(S))                                  &kp HOME &kp PG_DN &kp PG_UP &kp END   &trans
+&kp LC(N1) &kp LC(N2) &kp LC(N3)    &kp LC(N4)           &kp LC(N5)                                     &kp LEFT &kp DOWN  &kp UP    &kp RIGHT &trans
+&trans     &trans     &trans        &kp LG(LA(LS(BSLH))) &kp LG(LS(N4)) &trans            &trans        &trans   &trans    &trans    &trans    &trans
+&trans     &trans     &trans        &mt LGUI ESC         &mo NAV        &mt LSHFT SPACE   &mt RSHFT RET &mo SYM  &none     &none     &kp RGUI  &trans
             >;
         };
 
         sym {
             display-name = "SYM";
             bindings = <
-&kp EXCL   &kp AT     &kp HASH  &kp DLLR  &kp PRCNT                       &kp CARET       &kp AMPS  &kp STAR  &kp LPAR  &kp RPAR
-&kp N1     &kp N2     &kp N3    &kp N4    &kp N5                          &kp N6          &kp N7    &kp N8    &kp N9    &kp N0
-&kp GRAVE  &kp TILDE  &kp LBRC  &kp LBKT  &trans     &trans     &trans     &trans          &kp RBKT  &kp RBRC  &kp SQT   &kp DQT
-&trans     &trans     &trans    &mt LGUI ESC  &mo NAV &mt LSHFT SPACE      &mt RSHFT RET   &mo SYM   &none     &none     &kp RGUI  &trans
+&kp EXCL   &kp AT    &kp HASH &kp DLLR      &kp PRCNT                                 &kp CARET &kp AMPS  &kp STAR  &kp LPAR  &kp RPAR
+&kp N1     &kp N2    &kp N3   &kp N4        &kp N5                                    &kp N6    &kp N7    &kp N8    &kp N9    &kp N0
+&kp GRAVE  &kp TILDE &kp LBRC &kp LBKT      &trans    &trans            &trans        &trans    &kp RBKT  &kp RBRC  &kp SQT   &kp DQT
+&trans     &trans    &trans   &mt LGUI ESC  &mo NAV   &mt LSHFT SPACE   &mt RSHFT RET &mo SYM   &none     &none     &kp RGUI  &trans
             >;
         };
 
         adj {
             display-name = "ADJ";
             bindings = <
-&trans        &trans        &kp C_BRI_DN  &kp C_BRI_UP  &tog B_WIN                    &kp C_MUTE     &kp C_VOL_DN      &kp C_VOL_UP  &trans  &trans
-&kp F1        &kp F2        &kp F3        &kp F4        &kp F5                         &kp F6         &kp F7            &kp F8        &kp F9  &kp F10
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans   &bt BT_CLR     &studio_unlock    &trans        &trans  &trans
-&trans        &trans        &trans        &mt LGUI ESC  &mo NAV       &mt LSHFT SPACE  &mt RSHFT RET   &mo SYM           &none         &none   &kp RGUI &trans
+&trans        &trans       &kp C_BRI_DN &kp C_BRI_UP &trans                                      &kp C_MUTE &kp C_VOL_DN   &kp C_VOL_UP  &trans   &trans
+&kp F1        &kp F2       &kp F3       &kp F4       &kp F5                                      &kp F6     &kp F7         &kp F8        &kp F9   &kp F10
+&bt BT_SEL 0  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &trans           &trans        &bt BT_CLR &studio_unlock &trans        &trans   &trans
+&trans        &trans       &trans       &mt LGUI ESC &mo NAV      &mt LSHFT SPACE  &mt RSHFT RET &mo SYM    &none          &none         &kp RGUI &trans
             >;
         };
 
